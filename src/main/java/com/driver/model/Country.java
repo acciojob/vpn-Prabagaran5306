@@ -4,30 +4,35 @@ package com.driver.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "country")
 public class Country {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Enumerated(EnumType.STRING)
+
     private CountryName countryName;
 
-    private String code;
+    private String codes;
 
+    //parent
+    @OneToOne(mappedBy = "country" ,cascade = CascadeType.ALL)
+    User user;
 
     @ManyToOne
     @JoinColumn
-    private ServiceProvider serviceProvider;
+    ServiceProvider serviceProvider;
 
-
-    @OneToOne
-    private User user;
-
-    //constructor
     public Country() {
     }
 
-    //getters setters
+    public Country(int id, CountryName countryName, String codes, User user, ServiceProvider serviceProvider) {
+        this.id = id;
+        this.countryName = countryName;
+        this.codes = codes;
+        this.user = user;
+        this.serviceProvider = serviceProvider;
+    }
+
     public int getId() {
         return id;
     }
@@ -44,20 +49,12 @@ public class Country {
         this.countryName = countryName;
     }
 
-    public String getCode() {
-        return code;
+    public String getCodes() {
+        return codes;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public ServiceProvider getServiceProvider() {
-        return serviceProvider;
-    }
-
-    public void setServiceProvider(ServiceProvider serviceProvider) {
-        this.serviceProvider = serviceProvider;
+    public void setCodes(String codes) {
+        this.codes = codes;
     }
 
     public User getUser() {
@@ -66,5 +63,13 @@ public class Country {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public ServiceProvider getServiceProvider() {
+        return serviceProvider;
+    }
+
+    public void setServiceProvider(ServiceProvider serviceProvider) {
+        this.serviceProvider = serviceProvider;
     }
 }
