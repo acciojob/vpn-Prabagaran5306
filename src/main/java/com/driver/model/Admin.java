@@ -6,7 +6,6 @@ import java.util.List;
 
 @Entity
 public class Admin {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,15 +14,17 @@ public class Admin {
 
     private String password;
 
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    List<ServiceProvider> serviceProviders = new ArrayList<>();
+    @OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
+    List<ServiceProvider> serviceProvider = new ArrayList<>();
 
     public Admin() {
     }
 
-    public Admin(String username, String password) {
+    public Admin(int id, String username, String password, List<ServiceProvider> serviceProvider) {
+        this.id = id;
         this.username = username;
         this.password = password;
+        this.serviceProvider = serviceProvider;
     }
 
     public int getId() {
@@ -50,11 +51,11 @@ public class Admin {
         this.password = password;
     }
 
-    public List<ServiceProvider> getServiceProviders() {
-        return serviceProviders;
+    public List<ServiceProvider> getServiceProvider() {
+        return serviceProvider;
     }
 
-    public void setServiceProviders(List<ServiceProvider> serviceProviders) {
-        this.serviceProviders = serviceProviders;
+    public void setServiceProvider(List<ServiceProvider> serviceProvider) {
+        this.serviceProvider = serviceProvider;
     }
 }
